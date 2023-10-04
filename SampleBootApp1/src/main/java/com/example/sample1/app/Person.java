@@ -13,6 +13,20 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+
+@NamedQueries({
+	@NamedQuery(
+			name = "findWithName",
+			query = "from Person where name like :fname"
+			),
+	@NamedQuery(
+			name = "findByaAge",
+			query = "from Person where age >= :min and age < :max"
+			)
+})
+
 @Entity
 @Table(name = "people")
 public class Person {
