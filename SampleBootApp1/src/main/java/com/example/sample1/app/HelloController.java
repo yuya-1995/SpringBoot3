@@ -3,6 +3,7 @@ package com.example.sample1.app;
 import java.util.List;
 import java.util.Optional;
 
+import org.hsqldb.persist.RowInsertInterface.modes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -75,7 +76,7 @@ public class HelloController {
 			mav.addObject("title","Find result");
 			mav.addObject("msg", "「" + param + "」の検索結果");
 			mav.addObject("value",param);
-			List<Person> list = dao.findByAge(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
+			List<Person> list = dao.find(param);
 			mav.addObject("data", list);
 		}
 		
@@ -107,8 +108,7 @@ public class HelloController {
 		mav.setViewName("index");
 		mav.addObject("title", "Hello page");
 		mav.addObject("msg", "this is JPA sample data");
-//		Iterable<Person> list = repository.findAll();
-		List<Person> list = repository.findAllOrderByName();
+		List<Person> list = dao.getAll();
 		mav.addObject("data", list);
 		return mav;
 	}
@@ -171,6 +171,17 @@ public class HelloController {
 			ModelAndView mav) {
 		repository.deleteById(id);
 		return new ModelAndView("redirect:/");
+	}
+	
+	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
+	public ModelAndView index(ModelAndView mav,
+			@PathVariable int page) {
+		mav.setViewName("find");
+		mav.addObject("msg", "Personサンプルです。");
+		int num = 2;
+		Iterable<Person> list = dao.getPage(page, num);
+		mav.addObject("data", list);
+		return mav;
 	}
 
 }
