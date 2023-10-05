@@ -1,18 +1,22 @@
 package com.example.sample1.app;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
+import jakarta.websocket.ClientEndpoint;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 
@@ -54,6 +58,10 @@ public class Person {
 	@Phone
 	private String memo;
 	
+	@OneToMany(mappedBy = "Person")
+	@Column(nullable = true)
+	private List<Message> messages;
+	
 	public long getId() {
 		return id;
 	}
@@ -92,6 +100,14 @@ public class Person {
 	
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+	
+	public List<Message> getMessages() {
+		return messages;
+	}
+	
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 	
 }
