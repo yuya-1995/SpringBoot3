@@ -1,5 +1,8 @@
  *
 
-!SampleBootApp1/
-
+!/SampleBootApp1/
+!/samplewebfluxapp/
 !.gitignore
+
+/.metadata/
+/Servers/
