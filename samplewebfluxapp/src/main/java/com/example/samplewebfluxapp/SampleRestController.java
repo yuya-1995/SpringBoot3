@@ -21,6 +21,8 @@ import java.io.InputStreamReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @RestController
 public class SampleRestController {
 	
@@ -53,12 +55,14 @@ public class SampleRestController {
 	}
 	
 	@RequestMapping("/post")
+	@CrossOrigin(value = {"http://localhost:3000"})
 	public Mono<Post> post(){
 		Post post = new Post(0,0,"dummy","dummy massage ...");
 		return Mono.just(post);
 	}
 	
 	@RequestMapping("/post/{id}")
+	@CrossOrigin(value = {"http://localhost:3000"})
 	public Mono<Post> post(@PathVariable int id){
 		Post post = repository.findById(id);
 		return Mono.just(post);

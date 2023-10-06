@@ -2,6 +2,7 @@
 
 !/SampleBootApp1/
 !/samplewebfluxapp/
+!/react_flux_app/
 !.gitignore
 
 /.metadata/
