@@ -33,6 +33,15 @@ public class HelloController {
 	@Autowired
 	PersonDAOPersonlmpl dao;
 	
+	@Autowired
+	Post post;
+	
+	@Autowired
+	SampleComponent component;
+	
+	@Autowired
+	SamapleService service;
+	
 	@PostConstruct
 	public void init() {
 		Person p1 = new Person();
@@ -183,5 +192,29 @@ public class HelloController {
 		mav.addObject("data", list);
 		return mav;
 	}
-
+	
+	//beanを利用する（main参考）
+	@RequestMapping("/bean")
+	public ModelAndView bean(ModelAndView mav) {
+		mav.setViewName("bean");
+		mav.addObject("title","Bean sample");
+//		mav.addObject("msg",post);
+		mav.addObject("msg",component.message());
+//		mav.addObject("data",new Post[] {service.getPost()});
+//		mav.addObject("data",service.getAllPosts());
+		mav.addObject("data",service.getLocalPosts());
+		return mav;
+	}
+	
+	@RequestMapping(value = "/bean", method = RequestMethod.POST)
+	public ModelAndView bean(HttpServletRequest request,
+			ModelAndView mav) {
+		String param = request.getParameter("find_str");
+		mav.setViewName("bean");
+		mav.addObject("title","Bean sample");
+		mav.addObject("msg", "get id = " + param);
+		Post post = service.getAndSavePost(Integer.parseInt(param));
+		mav.addObject("data", new Post[]{post});
+		return mav;
+	}
 }

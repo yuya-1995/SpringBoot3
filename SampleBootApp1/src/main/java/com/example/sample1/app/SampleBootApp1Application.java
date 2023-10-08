@@ -5,11 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 
 import com.example.sample1.app.repositories.PersonRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class SampleBootApp1Application implements CommandLineRunner {
@@ -44,5 +48,6 @@ public class SampleBootApp1Application implements CommandLineRunner {
 		p1.setMail("tro@yamada");
 		repository.saveAndFlush(p1);
 	}
+	
 
 }
